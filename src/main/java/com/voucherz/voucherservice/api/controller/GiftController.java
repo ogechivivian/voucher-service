@@ -31,7 +31,7 @@ public class GiftController {
         this.giftDao = giftDao;
     }
 
-    @RequestMapping(value = "bulk/gift/create", method = RequestMethod.POST)
+    @RequestMapping(value = "gift/bulk/create", method = RequestMethod.POST)
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Gift> createGiftVoucher(@RequestBody @Validated final GiftRequest giftRequest) {
@@ -41,12 +41,12 @@ public class GiftController {
         for (int i = 0; i < numOfTimeCode; i++) {
 
             voucher = giftService.createGiftVoucher(giftRequest);
-            log.info(String.format("Bulk Gift Voucher Created"), voucher);
+            log.info(String.format("Bulk Gift Voucher Created", voucher));
         }
         return new ResponseEntity<>(voucher, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "single/gift/create", method = RequestMethod.POST)
+    @RequestMapping(value = "gift/single/create", method = RequestMethod.POST)
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Gift> createSingleGiftVoucher(@RequestBody @Validated final GiftRequest giftRequest) {
@@ -55,12 +55,13 @@ public class GiftController {
 //        int numOfTimeCode = giftRequest.getNumberOfCodeToGenerate();
         Gift voucher = null;
 //        for (int i = 0; i < numOfTimeCode; i++) {
+        //            AuditMessage event =new AuditMessage("created bulk voucher", "merchantid", new Date());
             voucher = giftService.createSingleGiftVoucher(giftRequest);
 //        }
         return new ResponseEntity<>(voucher, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/search/*/{type}", method = RequestMethod.GET)
+    @RequestMapping(value = "gift/search/findByGiftType{type}", method = RequestMethod.GET)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public List<Gift> findByGiftType(@PathVariable("type") String voucherType) {
@@ -69,17 +70,30 @@ public class GiftController {
 
         return vouchers;
     }
-    @RequestMapping(value = "update/gift/{id}", method = RequestMethod.PUT)
+
+    @RequestMapping(value = "/update/gift/{code}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public boolean updateGiftVoucher(@PathVariable( "id" ) Integer id, @RequestBody @Validated final Gift gift) {
-        return giftDao.update(gift);
+    public void updateDiscountVoucher(@PathVariable( "code" ) String code, @RequestBody @Validated final Gift gift) {
+
+        giftDao.update(gift);
+
     }
 
-    @RequestMapping(value = "search/gift/{code}", method = RequestMethod.GET)
+    @RequestMapping(value = "gift/search/{code}", method = RequestMethod.GET)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public Gift findByGiftCode(@PathVariable( "code" ) String code) {
         Gift gift = giftDao.findByGiftCode(code);
         return gift;
+    }
+
+    @RequestMapping(value = "gift/delete/{code}", method = RequestMethod.DELETE)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteGiftVoucher(){
+        //find gift by code
+        // if code item is returned from db
+        //update column
+        // if not return error to client that item was not found
     }
 }

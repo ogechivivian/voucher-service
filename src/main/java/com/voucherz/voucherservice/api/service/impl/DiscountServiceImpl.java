@@ -45,9 +45,12 @@ public class DiscountServiceImpl implements DiscountService {
         discount.setDiscountType(discountRequest.getDiscountType());
 //        discount.setDiscountType(discountRequest.getDiscountType());
         discount.setDiscountValue(discountRequest.getDiscountValue());
+//        discount.setDiscountAmount(discountRequest.getDiscountAmount());
+//        discount.setDiscountPercent(discountRequest.getDiscountPercent());
 
         return discountDao.create(discount);
     }
+
 
     @Override
     public List<Discount> getVoucherByType(String discountType) {

@@ -35,10 +35,11 @@ public class GiftDaoImpl extends AbstractBaseDao<Gift> implements  GiftDao{
                 .returningResultSet(MULTIPLE_RESULT, new BeanPropertyRowMapper<>(Gift.class));
         findByCode = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_agent_by_code")
                 .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Gift.class));
-        findByGiftType = new SimpleJdbcCall(jdbcTemplate).withProcedureName("findAllGiftVoucher")
+        findByGiftType = new SimpleJdbcCall(jdbcTemplate).withProcedureName("")
                 .returningResultSet(MULTIPLE_RESULT, new BeanPropertyRowMapper<>(Gift.class));
         findByGiftCode = new SimpleJdbcCall(jdbcTemplate).withProcedureName("findGiftVoucherByCode")
                 .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Gift.class));
+//        delete = new SimpleJdbcCall(jdbcTemplate).withProcedureName("UpdateGiftVoucher").withReturnValue();
     }
 
 //    @Autowired

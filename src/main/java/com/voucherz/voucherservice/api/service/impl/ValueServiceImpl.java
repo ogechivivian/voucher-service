@@ -2,9 +2,11 @@ package com.voucherz.voucherservice.api.service.impl;
 
 import com.voucherz.voucherservice.api.controller.model.ValueRequest;
 import com.voucherz.voucherservice.api.dao.impl.ValueDaoImpl;
-import com.voucherz.voucherservice.api.model.Discount;
+
 import com.voucherz.voucherservice.api.model.Value;
 import com.voucherz.voucherservice.api.service.ValueService;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -69,7 +71,7 @@ public class ValueServiceImpl implements ValueService {
         value.setPostfix(valueRequest.getPostfix());
         value.setPrefix(valueRequest.getPrefix());
         value.setAdditionalInfo(valueRequest.getAdditionalInfo());
-        value.setMerchantId(valueRequest.getMerchantId());
+        value.setMerchantId((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         value.setLength(valueRequest.getLength());
         value.setCategory(valueRequest.getCategory());
         value.setAmount(valueRequest.getAmount());

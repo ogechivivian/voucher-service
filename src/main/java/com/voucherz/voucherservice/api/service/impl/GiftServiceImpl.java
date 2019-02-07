@@ -5,6 +5,7 @@ import com.voucherz.voucherservice.api.dao.impl.GiftDaoImpl;
 import com.voucherz.voucherservice.api.model.Discount;
 import com.voucherz.voucherservice.api.model.Gift;
 import com.voucherz.voucherservice.api.service.GiftService;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class GiftServiceImpl implements GiftService {
 
         voucherCode = withPrefix(voucherCode, giftRequest.getPrefix());
         voucherCode = withPostFix(voucherCode, giftRequest.getPostfix());
-
+        //(String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
 
 //        Voucher voucher = new Voucher();
         Gift gift = new Gift();

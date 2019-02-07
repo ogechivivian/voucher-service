@@ -15,12 +15,13 @@ public class DiscountRequest {
     private Integer numberOfCodeToGenerate;
     private String category;
     private String additionalInfo;
-    private long merchantId;
+    private String merchantId;
     private String pattern;
     private String separator;
     private String discountType;
-//    private boolean Percent;
     private Double discountValue;
+    private Double discountAmount;
+    private Double discountPercent;
 
     public String getCode() {
         return code;
@@ -72,6 +73,7 @@ public class DiscountRequest {
 
     public String getPostfix() {
         return postfix;
+
     }
 
     public void setPostfix(String postfix) {
@@ -118,11 +120,11 @@ public class DiscountRequest {
         this.additionalInfo = additionalInfo;
     }
 
-    public long getMerchantId() {
+    public String getMerchantId() {
         return merchantId;
     }
 
-    public void setMerchantId(long merchantId) {
+    public void setMerchantId(String merchantId) {
         this.merchantId = merchantId;
     }
 
@@ -149,14 +151,6 @@ public class DiscountRequest {
     public void setDiscountType(String discountType) {
         this.discountType = discountType;
     }
-//
-//    public boolean isPercent() {
-//        return Percent;
-//    }
-//
-//    public void setPercent(boolean percent) {
-//        Percent = percent;
-//    }
 
     public Double getDiscountValue() {
         return discountValue;
@@ -166,27 +160,44 @@ public class DiscountRequest {
         this.discountValue = discountValue;
     }
 
+    public Double getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(Double discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public Double getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(Double discountPercent) {
+        this.discountPercent = discountPercent;
+    }
+
     @Override
     public String toString() {
         return "DiscountRequest{" +
-            "code='" + code + '\'' +
-            ", startDate=" + startDate +
-            ", expirationDate=" + expirationDate +
-            ", voucherType='" + voucherType + '\'' +
-            ", status='" + status + '\'' +
-            ", prefix='" + prefix + '\'' +
-            ", postfix='" + postfix + '\'' +
-            ", charset='" + charset + '\'' +
-            ", length=" + length +
-            ", numuberOfCodeToGenerate=" + numberOfCodeToGenerate +
-            ", category='" + category + '\'' +
-            ", additionalInfo='" + additionalInfo + '\'' +
-            ", merchantId=" + merchantId +
-            ", pattern='" + pattern + '\'' +
-            ", separator='" + separator + '\'' +
-            ", discountType='" + discountType + '\'' +
-//            ", Percent=" + Percent +
-            ", discountValue=" + discountValue +
-            '}';
+                "code='" + code + '\'' +
+                ", startDate=" + startDate +
+                ", expirationDate=" + expirationDate +
+                ", voucherType='" + voucherType + '\'' +
+                ", status='" + status + '\'' +
+                ", prefix='" + prefix + '\'' +
+                ", postfix='" + postfix + '\'' +
+                ", charset='" + charset + '\'' +
+                ", length=" + length +
+                ", numberOfCodeToGenerate=" + numberOfCodeToGenerate +
+                ", category='" + category + '\'' +
+                ", additionalInfo='" + additionalInfo + '\'' +
+                ", merchantId=" + merchantId +
+                ", pattern='" + pattern + '\'' +
+                ", separator='" + separator + '\'' +
+                ", discountType='" + discountType + '\'' +
+                ", discountValue=" + discountValue +
+                ", discountAmount=" + discountAmount +
+                ", discountPercent=" + discountPercent +
+                '}';
     }
 }

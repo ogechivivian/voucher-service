@@ -15,7 +15,7 @@ public class GiftRequest {
     private Integer numberOfCodeToGenerate;
     private String category;
     private String additionalInfo;
-    private long merchantId;
+    private String merchantId;
     private String pattern;
     private String separator;
     private Double value;
@@ -116,11 +116,11 @@ public class GiftRequest {
         this.additionalInfo = additionalInfo;
     }
 
-    public long getMerchantId() {
+    public String getMerchantId() {
         return merchantId;
     }
 
-    public void setMerchantId(long merchantId) {
+    public void setMerchantId(String merchantId) {
         this.merchantId = merchantId;
     }
 
@@ -138,8 +138,6 @@ public class GiftRequest {
 
     public void setSeparator(String separator) {
         this.separator = separator;
-
-        String seperator = "-";
     }
 
     public Double getValue() {

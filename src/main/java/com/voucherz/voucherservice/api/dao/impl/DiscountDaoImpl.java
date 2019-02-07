@@ -37,7 +37,7 @@ public class DiscountDaoImpl extends AbstractBaseDao<Discount> implements  Disco
                 .returningResultSet(MULTIPLE_RESULT, new BeanPropertyRowMapper<>(Discount.class));
         findByCode = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_agent_by_code")
                 .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Discount.class));
-        findByDiscountType = new SimpleJdbcCall(jdbcTemplate).withProcedureName("findAllDiscountVoucher")
+        findByDiscountType = new SimpleJdbcCall(jdbcTemplate).withProcedureName("findVoucherByDisocunt")
                 .returningResultSet(MULTIPLE_RESULT, new BeanPropertyRowMapper<>(Discount.class));
         findByDiscountCode = new SimpleJdbcCall(jdbcTemplate).withProcedureName("findDiscountVoucherByCode")
                 .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Discount.class));
@@ -82,5 +82,6 @@ public class DiscountDaoImpl extends AbstractBaseDao<Discount> implements  Disco
         }
         return list.get(0);
     }
+
 
 }

@@ -4,10 +4,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 
-public class Redeemption {
+public class Redeemption extends BaseEntity {
     private Date redeemedDate;
     private Integer redeemedCount;
     private Double redeemedAmount;
+    private String redeemptionStatus;
 
     public Date getRedeemedDate() {
         return redeemedDate;
@@ -33,12 +34,21 @@ public class Redeemption {
         this.redeemedAmount = redeemedAmount;
     }
 
+    public String getRedeemptionStatus() {
+        return redeemptionStatus;
+    }
+
+    public void setRedeemptionStatus(String redeemptionStatus) {
+        this.redeemptionStatus = redeemptionStatus;
+    }
+
     @Override
     public String toString() {
         return "Redeemption{" +
             "redeemedDate=" + redeemedDate +
             ", redeemedCount=" + redeemedCount +
             ", redeemedAmount=" + redeemedAmount +
+            ", redeemptionStatus='" + redeemptionStatus + '\'' +
             '}';
     }
 }

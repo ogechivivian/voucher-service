@@ -30,7 +30,7 @@ public class ValueDaoImpl extends AbstractBaseDao<Value> implements ValueDao{
     public void setDataSource(@Qualifier(value = "dataSource") DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         create = new SimpleJdbcCall(dataSource).withProcedureName("CreateValueVoucher").withReturnValue();
-        update = new SimpleJdbcCall(jdbcTemplate).withProcedureName("UpdateCreateValueVoucher").withReturnValue();
+        update = new SimpleJdbcCall(jdbcTemplate).withProcedureName("UpdateValueVoucher").withReturnValue();
         find = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_agent")
                 .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Discount.class));
         findAll = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_all_agents").returningResultSet(RESULT_COUNT, new RowCountMapper())

@@ -19,7 +19,7 @@ import java.util.Map;
 public abstract class AbstractBaseDao<T extends BaseEntity> implements BaseDao<T>{
     protected JdbcTemplate jdbcTemplate;
     protected JdbcTemplate readOnlyJdbcTemplate;
-    protected SimpleJdbcCall create, update, delete, find, findAll;
+    protected SimpleJdbcCall create, update, delete, find, findAll,updatestatus;
 
     protected final String SINGLE_RESULT = "object";
     protected final String MULTIPLE_RESULT = "list";
@@ -59,6 +59,12 @@ public abstract class AbstractBaseDao<T extends BaseEntity> implements BaseDao<T
             return null;
         }
         return list.get(0);
+    }
+
+    public boolean updatestatus(T model) throws DataAccessException {
+        SqlParameterSource in = new BeanPropertySqlParameterSource(model);
+        updatestatus.execute(in);
+        return true;
     }
 
     public List<T> findAll() {

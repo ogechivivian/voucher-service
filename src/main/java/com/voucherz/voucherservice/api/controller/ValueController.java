@@ -20,14 +20,13 @@ public class ValueController {
     private final ValueService valueService;
     private final ValueDao valueDao;
 
-
     @Autowired
     public ValueController(ValueService valueService, ValueDao valueDao) {
         this.valueService = valueService;
         this.valueDao = valueDao;
     }
 
-    @RequestMapping(value = "bulk/value/create", method = RequestMethod.POST)
+    @RequestMapping(value = "value/bulk/create", method = RequestMethod.POST)
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Value> createVoucher(@RequestBody @Validated final ValueRequest valueRequest) {
@@ -40,7 +39,7 @@ public class ValueController {
         return new ResponseEntity<>(voucher, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "single/value/create", method = RequestMethod.POST)
+    @RequestMapping(value = "value/single/create", method = RequestMethod.POST)
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Value> createSingleValueVoucher(@RequestBody @Validated final ValueRequest valueRequest) {
@@ -60,17 +59,19 @@ public class ValueController {
 
         return vouchers;
     }
-    @RequestMapping(value = "/search/value/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update/value/{code}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public boolean updateValueVoucher(@PathVariable( "id" ) Integer id, @RequestBody @Validated final Value value) {
-        return valueDao.update(value);
+    public void updateValueVoucher(@PathVariable( "code" ) String code, @RequestBody @Validated final Value value) {
+
+         valueDao.update(value);
     }
+
     @RequestMapping(value = "search/value/{code}", method = RequestMethod.GET)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public Value findByValueCode(@PathVariable( "code" ) String code) {
-        Value discount = valueDao.findByValueCode(code);
-        return discount;
+        Value value = valueDao.findByValueCode(code);
+        return value;
     }
 }
 
@@ -95,5 +96,6 @@ public class ValueController {
 //        List<Discount>  vouchers = valueService.getVoucherByType(voucherType);
 //
 //        return vouchers;
+
 //    }
 //}

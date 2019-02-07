@@ -6,6 +6,7 @@ public class RedeemptionRequest {
     private Date redeemedDate;
     private Integer redeemedCount;
     private Double redeemedAmount;
+    private String redeemptionStatus;
     private String code;
     private Date expirationDate;
     private String voucherType;
@@ -33,6 +34,14 @@ public class RedeemptionRequest {
 
     public void setRedeemedAmount(Double redeemedAmount) {
         this.redeemedAmount = redeemedAmount;
+    }
+
+    public String getRedeemptionStatus() {
+        return redeemptionStatus;
+    }
+
+    public void setRedeemptionStatus(String redeemptionStatus) {
+        this.redeemptionStatus = redeemptionStatus;
     }
 
     public String getCode() {
@@ -73,6 +82,7 @@ public class RedeemptionRequest {
             "redeemedDate=" + redeemedDate +
             ", redeemedCount=" + redeemedCount +
             ", redeemedAmount=" + redeemedAmount +
+            ", redeemptionStatus='" + redeemptionStatus + '\'' +
             ", code='" + code + '\'' +
             ", expirationDate=" + expirationDate +
             ", voucherType='" + voucherType + '\'' +

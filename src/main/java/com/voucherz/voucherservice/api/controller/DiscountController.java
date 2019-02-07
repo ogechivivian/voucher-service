@@ -2,6 +2,7 @@ package com.voucherz.voucherservice.api.controller;
 
 import com.voucherz.voucherservice.api.controller.model.DiscountRequest;
 import com.voucherz.voucherservice.api.dao.DiscountDao;
+//import com.voucherz.voucherservice.api.event.AuditMessage;
 import com.voucherz.voucherservice.api.model.Discount;
 import com.voucherz.voucherservice.api.service.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -28,7 +30,7 @@ public class DiscountController {
         this.discountDao = discountDao;
     }
 
-    @RequestMapping(value = "bulk/discount/create", method = RequestMethod.POST)
+    @RequestMapping(value = "discount/bulk/create", method = RequestMethod.POST)
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Discount> createVoucher(@RequestBody @Validated final DiscountRequest discountRequest) {
@@ -36,11 +38,12 @@ public class DiscountController {
        int numOfTimeCode = discountRequest.getNumberOfCodeToGenerate();
         Discount voucher = null;
         for (int i = 0; i < numOfTimeCode; i++) {
+//            AuditMessage event =new AuditMessage("created bulk voucher", "merchantid", new Date());
             voucher = discountService.createVoucher(discountRequest);
         }
         return new ResponseEntity<>(voucher, HttpStatus.CREATED);
     }
-    @RequestMapping(value = "single/discount/create", method = RequestMethod.POST)
+    @RequestMapping(value = "discount/single/create", method = RequestMethod.POST)
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Discount> createSingleGiftVoucher(@RequestBody @Validated final DiscountRequest discountRequest) {
@@ -49,28 +52,31 @@ public class DiscountController {
 //        int numOfTimeCode = giftRequest.getNumberOfCodeToGenerate();
         Discount voucher = null;
 //        for (int i = 0; i < numOfTimeCode; i++) {
+        //            AuditMessage event =new AuditMessage("created bulk voucher", "merchantid", new Date());
         voucher = discountService.createVoucher(discountRequest);
 //        }
         return new ResponseEntity<>(voucher, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/search/{type}", method = RequestMethod.GET)
+    @RequestMapping(value = "/discount/search/bytype/{type}", method = RequestMethod.GET)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public List<Discount> findByDiscountType(@PathVariable("type") String voucherType) {
+
 
         List<Discount>  vouchers = discountService.getVoucherByType(voucherType);
 
         return vouchers;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update/discount/{code}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public boolean updateDiscountVoucher(@PathVariable( "id" ) Integer id, @RequestBody @Validated final Discount discount) {
-        return discountDao.update(discount);
+    public void updateDiscountVoucher(@PathVariable( "code" ) String code, @RequestBody @Validated final Discount discount) {
+
+        discountDao.update(discount);
     }
 
-    @RequestMapping(value = "search/discount/{code}", method = RequestMethod.GET)
+    @RequestMapping(value = "/discount/search/{code}", method = RequestMethod.GET)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public Discount findByDiscountCode(@PathVariable( "code" ) String code) {

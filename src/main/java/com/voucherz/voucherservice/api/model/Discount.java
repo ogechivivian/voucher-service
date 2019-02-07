@@ -1,9 +1,13 @@
 package com.voucherz.voucherservice.api.model;
 
+import java.math.BigDecimal;
+
 public class Discount extends Voucher {
     private String discountType;
-//    private boolean Percent;
     private Double discountValue;
+    private Double discountAmount;
+	private Double discountPercent;
+
 
     public String getDiscountType() {
         return discountType;
@@ -13,14 +17,6 @@ public class Discount extends Voucher {
         this.discountType = discountType;
     }
 
-//    public boolean isPercent() {
-//        return Percent;
-//    }
-//
-//    public void setPercent(boolean percent) {
-//        Percent = percent;
-//    }
-
     public Double getDiscountValue() {
         return discountValue;
     }
@@ -29,12 +25,29 @@ public class Discount extends Voucher {
         this.discountValue = discountValue;
     }
 
+    public Double getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(Double discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public Double getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(Double discountPercent) {
+        this.discountPercent = discountPercent;
+    }
+
     @Override
     public String toString() {
         return "Discount{" +
                 "discountType='" + discountType + '\'' +
-//                ", Percent=" + Percent +
                 ", discountValue=" + discountValue +
+                ", discountAmount=" + discountAmount +
+                ", discountPercent=" + discountPercent +
                 '}';
     }
 }

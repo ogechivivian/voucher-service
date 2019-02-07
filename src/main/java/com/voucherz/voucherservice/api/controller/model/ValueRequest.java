@@ -15,7 +15,7 @@ public class ValueRequest {
     private Integer numberOfCodeToGenerate;
     private String category;
     private String additionalInfo;
-    private long merchantId;
+    private String merchantId;
     private String pattern;
     private String separator;
     private Double amount;
@@ -116,11 +116,11 @@ public class ValueRequest {
         this.additionalInfo = additionalInfo;
     }
 
-    public long getMerchantId() {
-        return merchantId;
+    public String getMerchantId() {
+       return merchantId;
     }
 
-    public void setMerchantId(long merchantId) {
+    public void setMerchantId(String merchantId) {
         this.merchantId = merchantId;
     }
 

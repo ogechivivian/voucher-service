@@ -16,7 +16,9 @@ public class Voucher extends BaseEntity {
 //    private Integer numuberOfCodeToGenerate;
     private String category;
     private String additionalInfo;
-    private long merchantId;
+    private String merchantId;
+    private Boolean deleteStatus;
+
 
     public String getCode() {
         return code;
@@ -114,11 +116,11 @@ public class Voucher extends BaseEntity {
         this.additionalInfo = additionalInfo;
     }
 
-    public long getMerchantId() {
+    public String getMerchantId() {
         return merchantId;
     }
 
-    public void setMerchantId(long merchantId) {
+    public void setMerchantId(String merchantId) {
         this.merchantId = merchantId;
     }
 
