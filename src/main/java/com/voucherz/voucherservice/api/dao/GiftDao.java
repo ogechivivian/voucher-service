@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface GiftDao extends BaseDao<Gift> {
     List<Gift> findByGiftType(String giftType);
-    Gift findByGiftCode (String giftCode);
+//    Gift findByGiftCode (String giftCode);
 //    Gift deleteByGiftCode (String giftCode);
 }

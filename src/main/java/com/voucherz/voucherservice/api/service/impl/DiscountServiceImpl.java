@@ -53,46 +53,17 @@ public class DiscountServiceImpl implements DiscountService {
 
 
     @Override
-    public List<Discount> getVoucherByType(String discountType) {
+    public List<Discount> getVoucherByType(String voucherType) {
 
         List<Discount> discounts = null;
 
-        if (discountType.equalsIgnoreCase("Discount")) {
+        if (voucherType.equalsIgnoreCase("Discount")) {
             discounts = discountDao.findByDiscountType("Discount");
             return discounts;
         }
         return discounts;
     }
 
-    @Override
-    public Discount createSingleDiscountVoucher(DiscountRequest discountRequest) {
-        String pattern = discountRequest.getPattern();
-        String voucherCode = (pattern.isEmpty() || pattern.equals(null)) ? getPatternlessCode(discountRequest) :
-                getPatternedCode(discountRequest.getPattern(), discountRequest.getSeparator(), discountRequest.getCharset());
-
-        voucherCode = withPrefix(voucherCode, discountRequest.getPrefix());
-        voucherCode = withPostFix(voucherCode, discountRequest.getPostfix());
-
-
-//        Voucher voucher = new Voucher();
-        Discount discount = new Discount();
-        discount.setCode(voucherCode);
-        discount.setStartDate(discountRequest.getStartDate());
-        discount.setExpirationDate(discountRequest.getExpirationDate());
-        discount.setStatus(discountRequest.getStatus());
-        discount.setVoucherType(discountRequest.getVoucherType());
-        discount.setCharset(discountRequest.getCharset());
-        discount.setPostfix(discountRequest.getPostfix());
-        discount.setPrefix(discountRequest.getPrefix());
-        discount.setAdditionalInfo(discountRequest.getAdditionalInfo());
-        discount.setMerchantId(discountRequest.getMerchantId());
-        discount.setLength(discountRequest.getLength());
-        discount.setCategory(discountRequest.getCategory());
-        discount.setDiscountType(discountRequest.getDiscountType());
-        discount.setDiscountValue(discountRequest.getDiscountValue());
-
-        return discountDao.create(discount);
-    }
 
 
 // else if (voucherType.equalsIgnoreCase("Gift")) {

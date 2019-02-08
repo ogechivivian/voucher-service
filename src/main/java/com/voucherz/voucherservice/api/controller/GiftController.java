@@ -56,17 +56,17 @@ public class GiftController {
         Gift voucher = null;
 //        for (int i = 0; i < numOfTimeCode; i++) {
         //            AuditMessage event =new AuditMessage("created bulk voucher", "merchantid", new Date());
-            voucher = giftService.createSingleGiftVoucher(giftRequest);
+            voucher = giftService.createGiftVoucher(giftRequest);
 //        }
         return new ResponseEntity<>(voucher, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "gift/search/findByGiftType{type}", method = RequestMethod.GET)
+    @RequestMapping(value = "gift/search/findByGiftType/{type}", method = RequestMethod.GET)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public List<Gift> findByGiftType(@PathVariable("type") String voucherType) {
+    public List<Gift> findByGiftType(@PathVariable("type") String giftType) {
 
-        List<Gift>  vouchers = giftService.getGiftVoucherType(voucherType);
+        List<Gift>  vouchers = giftService.getGiftVoucherType(giftType);
 
         return vouchers;
     }
@@ -79,13 +79,13 @@ public class GiftController {
 
     }
 
-    @RequestMapping(value = "gift/search/{code}", method = RequestMethod.GET)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    public Gift findByGiftCode(@PathVariable( "code" ) String code) {
-        Gift gift = giftDao.findByGiftCode(code);
-        return gift;
-    }
+//    @RequestMapping(value = "gift/search/{code}", method = RequestMethod.GET)
+//    @ResponseBody
+//    @ResponseStatus(HttpStatus.OK)
+//    public Gift findByGiftCode(@PathVariable( "code" ) String code) {
+//        Gift gift = giftDao.findByGiftCode(code);
+//        return gift;
+//    }
 
     @RequestMapping(value = "gift/delete/{code}", method = RequestMethod.DELETE)
     @ResponseBody

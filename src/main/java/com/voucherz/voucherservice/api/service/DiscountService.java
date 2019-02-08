@@ -9,7 +9,7 @@ public interface DiscountService {
 //    public Discount createDiscount(Discounscount discount);
 
     Discount createVoucher(DiscountRequest discountRequest);
-    public List<Discount> getVoucherByType(String  type);
-    Discount createSingleDiscountVoucher(DiscountRequest discountRequest);
+    List<Discount> getVoucherByType(String  type);
+
 
 }

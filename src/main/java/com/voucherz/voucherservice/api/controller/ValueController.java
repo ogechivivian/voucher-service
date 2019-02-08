@@ -45,12 +45,12 @@ public class ValueController {
     public ResponseEntity<Value> createSingleValueVoucher(@RequestBody @Validated final ValueRequest valueRequest) {
 
         Value voucher = null;
-        voucher = valueService.createSingleValueVoucher(valueRequest);
+        voucher = valueService.createValueVoucher(valueRequest);
         return new ResponseEntity<>(voucher, HttpStatus.CREATED);
     }
 
 
-    @RequestMapping(value = "/search/value/{type}", method = RequestMethod.GET)
+    @RequestMapping(value = "/search/bytype/*/{type}", method = RequestMethod.GET)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public List<Value> findByValueType(@PathVariable("type") String voucherType) {
@@ -59,6 +59,7 @@ public class ValueController {
 
         return vouchers;
     }
+
     @RequestMapping(value = "/update/value/{code}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public void updateValueVoucher(@PathVariable( "code" ) String code, @RequestBody @Validated final Value value) {

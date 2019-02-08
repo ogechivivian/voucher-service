@@ -25,27 +25,22 @@ import java.util.Map;
 @Repository
 public class VoucherDaoImpl extends AbstractBaseDao<Voucher> implements VoucherDao {
     protected SimpleJdbcCall findByCode;
-    protected SimpleJdbcCall updatestatus;
-    private Object model;
-
-
+    protected SimpleJdbcCall findGiftCode;
     @Autowired
     @Override
     public void setDataSource(@Qualifier(value = "dataSource") DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         create = new SimpleJdbcCall(dataSource).withProcedureName("CreateValueVoucher").withReturnValue();
         update = new SimpleJdbcCall(jdbcTemplate).withProcedureName("UpdateCreateValueVoucher").withReturnValue();
-        updatestatus = new SimpleJdbcCall(jdbcTemplate).withProcedureName("DeleteVoucher").withReturnValue();
+        updatestatus = new SimpleJdbcCall(jdbcTemplate).withProcedureName("DisableVoucher").withReturnValue();
         findByCode = new SimpleJdbcCall(jdbcTemplate).withProcedureName("GetVoucherByCode")
                 .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Voucher.class));
-        delete = new SimpleJdbcCall(jdbcTemplate).withProcedureName("DeleteVoucher").withReturnValue();
-        find = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_agent")
-            .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Voucher.class));
-        findAll = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_all_agents").returningResultSet(RESULT_COUNT, new RowCountMapper())
-            .returningResultSet(MULTIPLE_RESULT, new BeanPropertyRowMapper<>(Voucher.class));
-        findByCode = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_agent_by_code")
-            .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Voucher.class));
-        delete = new SimpleJdbcCall(jdbcTemplate).withProcedureName("DeleteVoucher").withReturnValue();
+        findGiftCode = new SimpleJdbcCall(jdbcTemplate).withProcedureName("GetGiftVoucher")
+                .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Voucher.class));
+//        delete = new SimpleJdbcCall(jdbcTemplate).withProcedureName("DeleteVoucher").withReturnValue();
+//        find = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_agent")
+//            .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Voucher.class));
+
     }
     public Voucher findByCode(String voucherCode) {
         SqlParameterSource in = new MapSqlParameterSource().addValue("code", voucherCode);
@@ -57,9 +52,24 @@ public class VoucherDaoImpl extends AbstractBaseDao<Voucher> implements VoucherD
         return list.get(0);
     }
 
-    public boolean updatestatus() throws DataAccessException {
-        SqlParameterSource in = new BeanPropertySqlParameterSource(model);
-        updatestatus.execute(in);
-        return true;
+    @Override
+    public Voucher findGiftCode(String code) {
+        return null;
     }
+
+//    public Voucher findGiftCode(long id) {
+//        SqlParameterSource in = new MapSqlParameterSource().addValue();
+//        Map<String, Object> m = findGiftCode.execute(in);
+//        List<Voucher> list = (List<Voucher>) m.get(SINGLE_RESULT);
+//        if (list == null || list.isEmpty()) {
+//            return null;
+//        }
+//        return list.get(0);
+//    }
+////
+//    public boolean updatestatus(String voucherCode) throws DataAccessException {
+//        SqlParameterSource in = new BeanPropertySqlParameterSource(model);
+//        updatestatus.execute(in);
+//        return true;
+//    }
 }

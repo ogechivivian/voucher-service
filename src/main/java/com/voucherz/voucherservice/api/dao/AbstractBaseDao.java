@@ -61,8 +61,9 @@ public abstract class AbstractBaseDao<T extends BaseEntity> implements BaseDao<T
         return list.get(0);
     }
 
-    public boolean updatestatus(T model) throws DataAccessException {
-        SqlParameterSource in = new BeanPropertySqlParameterSource(model);
+    public boolean updatestatus(String code) throws DataAccessException {
+        SqlParameterSource in = new MapSqlParameterSource().addValue("Code", code);
+        System.out.println("------------"+code);
         updatestatus.execute(in);
         return true;
     }

@@ -58,7 +58,7 @@ public class DiscountController {
         return new ResponseEntity<>(voucher, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/discount/search/bytype/{type}", method = RequestMethod.GET)
+    @RequestMapping(value = "/search/bytype/{type}", method = RequestMethod.GET)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public List<Discount> findByDiscountType(@PathVariable("type") String voucherType) {

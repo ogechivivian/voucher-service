@@ -8,6 +8,6 @@ public interface BaseDao<T> {
     public T find (long id);
     public List<T> findAll();
     public boolean delete(T model);
-    public boolean updatestatus(T model);
+    public boolean updatestatus(String code);
 
 }

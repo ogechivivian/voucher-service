@@ -20,8 +20,6 @@ public class DiscountRequest {
     private String separator;
     private String discountType;
     private Double discountValue;
-    private Double discountAmount;
-    private Double discountPercent;
 
     public String getCode() {
         return code;
@@ -73,7 +71,6 @@ public class DiscountRequest {
 
     public String getPostfix() {
         return postfix;
-
     }
 
     public void setPostfix(String postfix) {
@@ -160,22 +157,6 @@ public class DiscountRequest {
         this.discountValue = discountValue;
     }
 
-    public Double getDiscountAmount() {
-        return discountAmount;
-    }
-
-    public void setDiscountAmount(Double discountAmount) {
-        this.discountAmount = discountAmount;
-    }
-
-    public Double getDiscountPercent() {
-        return discountPercent;
-    }
-
-    public void setDiscountPercent(Double discountPercent) {
-        this.discountPercent = discountPercent;
-    }
-
     @Override
     public String toString() {
         return "DiscountRequest{" +
@@ -191,13 +172,11 @@ public class DiscountRequest {
                 ", numberOfCodeToGenerate=" + numberOfCodeToGenerate +
                 ", category='" + category + '\'' +
                 ", additionalInfo='" + additionalInfo + '\'' +
-                ", merchantId=" + merchantId +
+                ", merchantId='" + merchantId + '\'' +
                 ", pattern='" + pattern + '\'' +
                 ", separator='" + separator + '\'' +
                 ", discountType='" + discountType + '\'' +
                 ", discountValue=" + discountValue +
-                ", discountAmount=" + discountAmount +
-                ", discountPercent=" + discountPercent +
                 '}';
     }
 }

@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface ValueService {
     Value createValueVoucher(ValueRequest valueRequest);
-    Value createSingleValueVoucher(ValueRequest valueRequest);
-    List<Value> getValueVoucheType(String type);
+    List<Value> getValueVoucheType(String voucherType);
 }

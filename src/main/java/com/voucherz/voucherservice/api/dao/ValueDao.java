@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ValueDao extends BaseDao<Value> {
 
-    List<Value> findByValueType(String value);
+    List<Value> findByValueType(String voucherType);
     Value findByValueCode(String valueCode);
 }

@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Repository
 public class ValueDaoImpl extends AbstractBaseDao<Value> implements ValueDao{
-    protected SimpleJdbcCall findByCode;
+
     protected SimpleJdbcCall findByValueType;
     protected SimpleJdbcCall findByValueCode;
 
@@ -31,42 +31,23 @@ public class ValueDaoImpl extends AbstractBaseDao<Value> implements ValueDao{
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         create = new SimpleJdbcCall(dataSource).withProcedureName("CreateValueVoucher").withReturnValue();
         update = new SimpleJdbcCall(jdbcTemplate).withProcedureName("UpdateValueVoucher").withReturnValue();
-        find = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_agent")
-                .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Discount.class));
-        findAll = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_all_agents").returningResultSet(RESULT_COUNT, new RowCountMapper())
-                .returningResultSet(MULTIPLE_RESULT, new BeanPropertyRowMapper<>(Discount.class));
-        findByCode = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_agent_by_code")
-                .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Discount.class));
-        findByValueType = new SimpleJdbcCall(jdbcTemplate).withProcedureName("findAllValueVoucher")
+//        find = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_agent")
+//                .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Discount.class));
+//        findAll = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_all_agents").returningResultSet(RESULT_COUNT, new RowCountMapper())
+//                .returningResultSet(MULTIPLE_RESULT, new BeanPropertyRowMapper<>(Discount.class));
+//        findByCode = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_agent_by_code")
+//                .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Discount.class));
+        findByValueType = new SimpleJdbcCall(jdbcTemplate).withProcedureName("findVoucherByGift")
                 .returningResultSet(MULTIPLE_RESULT, new BeanPropertyRowMapper<>(Gift.class));
-        findByValueCode = new SimpleJdbcCall(jdbcTemplate).withProcedureName("findValueVoucherByCode")
+       findByValueCode = new SimpleJdbcCall(jdbcTemplate).withProcedureName("findValueVoucherByCode")
                 .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Gift.class));
     }
 
-//    @Autowired
-//    @Override
-//    public void setReadOnlyDataSource(@Qualifier(value = "readOnlyDataSource") DataSource dataSource) {
-//        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-//        find = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_agent")
-//                .returningResultSet(SINGLE_RESULT, new BeanPropertyRowMapper<>(Agent.class));
-//        findAll = new SimpleJdbcCall(jdbcTemplate).withProcedureName("find_all_agents").returningResultSet(RESULT_COUNT, new RowCountMapper())
-//                .returningResultSet(MULTIPLE_RESULT, new BeanPropertyRowMapper<>(Agent.class));
-//    }
-
-    public Discount findByCode(String agentCode) {
-        SqlParameterSource in = new MapSqlParameterSource().addValue("code", agentCode);
-        Map<String, Object> m = findByCode.execute(in);
-        List<Discount> list = (List<Discount>) m.get(SINGLE_RESULT);
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-        return list.get(0);
-    }
 
 
     @Override
-    public List<Value> findByValueType(String valueType) {
-        SqlParameterSource in = new MapSqlParameterSource().addValue("ValueType",valueType);
+    public List<Value> findByValueType(String voucherType) {
+        SqlParameterSource in = new MapSqlParameterSource().addValue("voucherType",voucherType);
         Map<String, Object> m =findByValueType.execute(in);
         List<Value> list  = (List<Value>) m.get(MULTIPLE_RESULT);
         if(list == null || list.isEmpty()){
@@ -74,6 +55,11 @@ public class ValueDaoImpl extends AbstractBaseDao<Value> implements ValueDao{
         }
         return list;
     }
+
+//    @Override
+//    public Value findByValueCode(String valueCode) {
+//        return null;
+//    }
 
     public Value findByValueCode(String valueCode) {
         SqlParameterSource in = new MapSqlParameterSource().addValue("code", valueCode);

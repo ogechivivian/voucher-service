@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface GiftService {
     Gift createGiftVoucher(GiftRequest giftRequest);
-    Gift createSingleGiftVoucher(GiftRequest giftRequest);
-    List<Gift> getGiftVoucherType(String  type);
-
+    List<Gift> getGiftVoucherType(String  voucherType);
 
 }
