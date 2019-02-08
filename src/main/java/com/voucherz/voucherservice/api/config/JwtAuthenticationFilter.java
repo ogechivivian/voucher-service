@@ -16,9 +16,10 @@ import java.io.IOException;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
-    private JwtTokenProvider tokenProvider;
+     JwtTokenProvider tokenProvider;
 
-//    @Autowired
+
+    //    @Autowired
 //    private CustomUserDetailsService customUserDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
@@ -27,13 +28,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try{
             String jwt = getJwtFromRequest(request);
-            System.out.println(".......hello world");
+            //System.out.println(".......hello world");
                 //null pointer exception
+            System.out.println("================="+StringUtils.hasText(jwt));
+            System.out.println("===============kkk=="+tokenProvider.validateToken(jwt));
             if(StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)){
 
                 String  userId = tokenProvider.getUserIdFromJWT(jwt);
 
-
+                    System.out.println( userId);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userId, null, null);
 
 
@@ -48,8 +51,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
     private String getJwtFromRequest(HttpServletRequest request){
         String bearerToken = request.getHeader("Authorization");
-        System.out.println(".......hello world");
         if(StringUtils.hasText(bearerToken)&& bearerToken.startsWith("Bearer")){
+            System.out.println(bearerToken);
             return bearerToken.substring(7,bearerToken.length());
         }
 

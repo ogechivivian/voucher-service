@@ -5,12 +5,15 @@ import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.security.SignatureException;
 import java.util.Base64;
 import java.util.Date;
 
+@Service
 public class JwtTokenProvider {
     private final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
@@ -48,7 +51,7 @@ public class JwtTokenProvider {
 //    // decrypting the token
     public String getUserIdFromJWT(String token){
         Claims claims = Jwts.parser()
-                .setSigningKey(Base64.getEncoder().encodeToString(jwtSecret.getBytes()))
+                .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
 
@@ -56,8 +59,10 @@ public class JwtTokenProvider {
     }
 
     public boolean validateToken(String authToken){
+        System.out.println("llllfllf");
         try{
-            Jwts.parser().setSigningKey(Base64.getEncoder().encodeToString(jwtSecret.getBytes())).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(jwtSecret)
+                    .parseClaimsJws(authToken);
             return true;
 
         }catch(MalformedJwtException ex){
@@ -69,6 +74,10 @@ public class JwtTokenProvider {
         }catch(IllegalArgumentException ex){
             logger.error("JWT claims string is empty");
         }
+        catch (Exception e){
+            logger.error(e.getMessage());
+        }
+
         return false;
     }
 }
